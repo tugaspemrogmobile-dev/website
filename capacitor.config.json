@@ -1,0 +1,7 @@
+{
+  "appId": "com.myproductivity.web",
+  "appName": "My Productivity Web",
+  "webDir": "www",
+  "backgroundColor": "#080808",
+  "server": { "androidScheme": "https" }
+}

@@ -1,0 +1,79 @@
+{
+  "name": "my-productivity-web",
+  "version": "1.7.3",
+  "description": "Habits, tasks and goals in one calm place.",
+  "main": "electron/main.js",
+  "author": "tugaspemrogmobile-dev",
+  "license": "AGPL-3.0-or-later",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win dir --publish never && node tools/build_portable.js && node tools/build_setup.js",
+    "android:add": "cap add android",
+    "android:sync": "cap sync android",
+    "android:open": "cap open android",
+    "dist:mac": "electron-builder --mac zip --universal --publish never",
+    "lint": "eslint www/js",
+    "test:unit": "node tests/unit.js"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8",
+    "eslint": "^9.39.5",
+    "globals": "^15.15.0"
+  },
+  "build": {
+    "appId": "com.myproductivity.web",
+    "productName": "My Productivity Web",
+    "files": [
+      "electron/**",
+      "www/**",
+      "assets/icon.png",
+      "!node_modules/**"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "dir",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "artifactName": "My-Productivity-Web-${version}-${os}-${arch}.${ext}",
+    "mac": {
+      "icon": "assets/icon.png",
+      "category": "public.app-category.productivity",
+      "identity": null,
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ]
+    },
+    "compression": "normal",
+    "electronLanguages": [
+      "en-US"
+    ]
+  },
+  "dependencies": {
+    "@capacitor/local-notifications": "^6.1.3",
+    "groundwork-native": "file:native/groundwork-native"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tugaspemrogmobile-dev/website.git"
+  },
+  "homepage": "https://github.com/tugaspemrogmobile-dev/website"
+}

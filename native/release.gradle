@@ -1,0 +1,21 @@
+// Applied to the generated android/app/build.gradle (CI and local builds):
+// version name/code from package.json, and release signing when the key store is provided through env vars.
+def pkg = new groovy.json.JsonSlurper().parse(rootProject.file('../package.json'))
+def v = pkg.version.tokenize('.').collect { it.replaceAll('[^0-9]', '').toInteger() }
+android {
+    defaultConfig {
+        versionName pkg.version
+        versionCode v[0] * 10000 + v[1] * 100 + v[2]
+    }
+    if (System.getenv('GROUNDWORK_KEYSTORE')) {
+        signingConfigs {
+            release {
+                storeFile file(System.getenv('GROUNDWORK_KEYSTORE'))
+                storePassword System.getenv('GROUNDWORK_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('GROUNDWORK_KEY_ALIAS')
+                keyPassword System.getenv('GROUNDWORK_KEYSTORE_PASSWORD')
+            }
+        }
+        buildTypes { release { signingConfig signingConfigs.release } }
+    }
+}
